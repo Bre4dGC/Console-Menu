@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -22,17 +23,17 @@ namespace ConsoleMenu
             bool Esc = false;
             string password = null;
             string name = null;
-            string backColor = null;
             int age = 0;
-            
 
             Console.Write("Чтобы посмотреть список команд напишите 'help': "); 
             string userInput = Console.ReadLine();Console.Clear();
+
             if (userInput == "help")
             {
                 Console.WriteLine("SetName – установить имя\nSetAge - установить возраст\nSetPassword – установить пароль\nInfo - вывести информацию о пользователе (если она есть)" +
                     "\nChangeColor - изменить цвет консоли\nEsc – выход из программы");
             }
+
             else
             {
                 Console.WriteLine("Неизвестная команда"); Console.ReadKey(); Console.Clear();
@@ -46,24 +47,22 @@ namespace ConsoleMenu
 
                 Console.Write("\nВведите команду: ");
                 userInput = Console.ReadLine();
+
                 switch(userInput)
                 {
                     case "SetName":
                         Console.Write("Установить имя пользователя: ");
-                        name = Console.ReadLine();
-                        Console.Write("Имя пользователя установленно"); Console.ReadKey(); Console.Clear();
+                        name = Console.ReadLine(); Console.Clear();
                         break;
 
                     case "SetPassword":
                         Console.Write("Установить пароль: ");
-                        password = Console.ReadLine();
-                        Console.Write("Пароль установлен"); Console.ReadKey(); Console.Clear();
+                        password = Console.ReadLine(); Console.Clear();
                         break;
 
                     case "SetAge":
                         Console.Write("Установить возраст пользователя: ");
-                        age = Convert.ToInt32(Console.ReadLine());
-                        Console.Write("Возраст пользователя установлен"); Console.ReadKey(); Console.Clear();
+                        age = Convert.ToInt32(Console.ReadLine()); Console.Clear();
                         break;
 
                     case "Info":
@@ -71,36 +70,63 @@ namespace ConsoleMenu
                         string enteredPassword = Console.ReadLine();
                         if (enteredPassword == password)
                         {
-                            Console.WriteLine("Доступ разрешен.");
-                            Console.Write($"Имя пользователя - {name}, возраст пользователя - {age}"); Console.ReadKey(); Console.Clear();
+                            Console.WriteLine("\nДоступ разрешен.");
+                            Console.Write($"\nИмя пользователя - {name}, возраст пользователя - {age}"); Console.ReadKey(); Console.Clear();
                             break;
                         }
                         else
                         {
                             Console.WriteLine("Неверный пароль. Доступ запрещен.");
-                            Console.WriteLine("Если у вас нет пароля напишите 'SetPassword' чтобы установить пароль");
+                            Console.WriteLine("Если у вас нет пароля напишите 'SetPassword' чтобы установить пароль"); Console.ReadKey(); Console.Clear();
                         }
                         break;
 
-                    //case "ChangeColor":
-                      // Console.WriteLine("Выберите цвет");
-                        //switch (backColor)
-                        //{
-                            //case "green":
-                                //Console.BackgroundColor = ConsoleColor.Green;
-                                //break;
+                    case "ChangeColor":
+                        Console.WriteLine("Цвета на выбор - green, red, yellow, cyan, magenta, gray, blue");
+                        Console.Write("\nВаш выбор: "); 
+                        string backColor = Console.ReadLine();
+                        
+                        switch (backColor)
+                        {
+                            case "green":
+                                Console.BackgroundColor = ConsoleColor.DarkGreen; Console.Clear();
+                                break;
 
-                            //case "red":
-                                //Console.BackgroundColor = ConsoleColor.DarkRed;
-                                //break;
-                        //}
-                        //break;
+                            case "red":
+                                Console.BackgroundColor = ConsoleColor.DarkRed; Console.Clear();
+                                break;
+
+                            case "yellow":
+                                Console.BackgroundColor = ConsoleColor.DarkYellow; Console.Clear();
+                                break;
+
+                            case "cyan":
+                                Console.BackgroundColor = ConsoleColor.DarkCyan; Console.Clear();
+                                break;
+
+                            case "magenta":
+                                Console.BackgroundColor = ConsoleColor.DarkMagenta; Console.Clear();
+                                break;
+
+                            case "gray":
+                                Console.BackgroundColor = ConsoleColor.DarkGray; Console.Clear();
+                                break;
+
+                            case "blue":
+                                Console.BackgroundColor = ConsoleColor.DarkBlue; Console.Clear();
+                                break;
+
+                                default:
+                                Console.WriteLine("Неизвестный цвет");
+                                break;
+                        }
+                        break;
 
                     case "Esc":
                         Esc = true; Console.Clear();
                         break;
-                    default: Console.WriteLine("Неизвестная команда");
-                        return;
+                    default: Console.Write("Неизвестная команда"); Console.ReadKey(); Console.Clear();
+                        break;
                 }
             }
             
